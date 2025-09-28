@@ -144,16 +144,21 @@ const pages = document.querySelectorAll("[data-page]");
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function (e) {
     e.preventDefault();
-    const targetPage = this.getAttribute("data-page");
+    const targetPage = this.getAttribute("data-page").trim();
+    console.log('Nav click:', targetPage);
     // Remove active from all links and pages
     navigationLinks.forEach(link => link.classList.remove("active"));
     pages.forEach(page => page.classList.remove("active"));
     // Add active to the clicked link and matching page
     this.classList.add("active");
-    const targetArticle = document.querySelector(`[data-page='${targetPage}']`);
-    if (targetArticle) {
-      targetArticle.classList.add("active");
-    } else {
+    let found = false;
+    pages.forEach(page => {
+      if (page.getAttribute("data-page").trim() === targetPage) {
+        page.classList.add("active");
+        found = true;
+      }
+    });
+    if (!found) {
       console.error(`No article found with data-page='${targetPage}'`);
     }
     window.scrollTo(0, 0);
