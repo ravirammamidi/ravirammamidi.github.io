@@ -142,7 +142,8 @@ const pages = document.querySelectorAll("[data-page]");
 
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
+  navigationLinks[i].addEventListener("click", function (e) {
+    e.preventDefault();
     const targetPage = this.getAttribute("data-page");
     // Remove active from all links and pages
     navigationLinks.forEach(link => link.classList.remove("active"));
@@ -152,6 +153,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
     const targetArticle = document.querySelector(`[data-page='${targetPage}']`);
     if (targetArticle) {
       targetArticle.classList.add("active");
+    } else {
+      console.error(`No article found with data-page='${targetPage}'`);
     }
     window.scrollTo(0, 0);
   });
