@@ -144,15 +144,12 @@ const pages = document.querySelectorAll("[data-page]");
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
     const targetPage = this.getAttribute("data-page");
-    for (let j = 0; j < pages.length; j++) {
-      if (pages[j].dataset.page === targetPage) {
-        pages[j].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[j].classList.remove("active");
-        navigationLinks[j].classList.remove("active");
-      }
-    }
+    // Remove active from all links and pages
+    navigationLinks.forEach(link => link.classList.remove("active"));
+    pages.forEach(page => page.classList.remove("active"));
+    // Add active to the clicked link and matching page
+    this.classList.add("active");
+    document.querySelector(`[data-page='${targetPage}']`).classList.add("active");
+    window.scrollTo(0, 0);
   });
 }
