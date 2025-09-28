@@ -149,7 +149,10 @@ for (let i = 0; i < navigationLinks.length; i++) {
     pages.forEach(page => page.classList.remove("active"));
     // Add active to the clicked link and matching page
     this.classList.add("active");
-    document.querySelector(`[data-page='${targetPage}']`).classList.add("active");
+    const targetArticle = document.querySelector(`[data-page='${targetPage}']`);
+    if (targetArticle) {
+      targetArticle.classList.add("active");
+    }
     window.scrollTo(0, 0);
   });
 }
